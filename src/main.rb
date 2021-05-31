@@ -1,6 +1,8 @@
 require 'tty-prompt'
 prompt = TTY::Prompt.new
 
+require 'colorize'
+
 class MenuItem
   attr_reader :name, :price
 
@@ -28,7 +30,7 @@ seafood_sushi = [Sushi.new("Salmon & Avocado", 4), Sushi.new("Tuna & Avocado", 4
 meat_sushi = [Sushi.new("Teriyaki chicken & Avocado", 4), Sushi.new("Crispy chicken", 4), Sushi.new("Teriyaki beef", 4)]
 hot_menu = [Sushi.new("Miso soup", 2), Sushi.new("Green tea", 2)]
 
-puts "Irassyaimase! Welcome to Yoko's Sushi. What is your name?"
+puts "Irassyaimase! Welcome to Yoko's Sushi. What is your name?".yellow 
 name = gets.chomp
 puts "Hello, #{name}. How can I help you today?"
 puts "We have variety of sushi. If you buy 3 sushi then you will get 10% discount and free miso soup or hot green tea."
@@ -92,11 +94,11 @@ selection.each do |s|
     end
   end
 end
+
 puts "Here's your bill."
 chosen_sushi.each do |sushi|
   puts sushi
 end
-puts "Total is $#{total_price}"
-puts "Arigato gozaimashita. Thank you, have a nice day!"
-# vege_choices = Sushi.new("Avocado", 3.7), Sushi.new("Tempura Vegetable", 3.7), Sushi.new("Avocado & Cucumber", 3.7)
-# selection = prompt.multi_select("Select menu?", choices)  # returns array
+puts "Total is $#{total_price}".red
+puts "Arigato gozaimashita. Thank you, have a nice day!".blue
+
