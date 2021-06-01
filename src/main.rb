@@ -9,6 +9,7 @@ arter = Artii::Base.new
 puts arter.asciify("Welcome!").cyan
 require 'tty-table'
 
+# define classes
 class MenuItem
   attr_reader :name, :price
 
@@ -30,6 +31,7 @@ class Drink < MenuItem
   
 end
 
+# show menu table with with tty-table
 table = TTY::Table.new(["Vegetarian sushi $3.7","Seafood sushi $4", "Meat sushi $4", "Hot Drinks $2"], 
   [["Avocado", "Salmon & Avocado", "Teriyaki chicken & Avocado", "Miso soup"], 
   ["Tempura Vegetabl", "Tuna & Avocado", "Crispy chicken", "Green tea"],
@@ -41,6 +43,7 @@ seafood_sushi = [Sushi.new("Salmon & Avocado", 4), Sushi.new("Tuna & Avocado", 4
 meat_sushi = [Sushi.new("Teriyaki chicken & Avocado", 4), Sushi.new("Crispy chicken", 4), Sushi.new("Teriyaki beef", 4)]
 hot_drinks = [Sushi.new("Miso soup", 2), Sushi.new("Green tea", 2)]
 
+# show welcoming message
 puts "Irassyaimase! Welcome to Yoko's Sushi. What is your name?".yellow 
 name = gets.chomp
 puts "Hello, #{name}. How can I help you today?"
@@ -62,13 +65,14 @@ show_menu(hot_drinks)
 
 puts "Choose sushi what you like."
 
+# allows to choose menu by categories
 choices = ["Vegetarian sushi", "Seafood sushi", "Meat sushi", "Hot drinks"]
 selection = prompt.multi_select("Select menu?", choices)  # returns array
 
 total_price = 0
 chosen_items = []
 
-# define 
+# ordering
 
 def menu_selection(tty_prompt, menu_type, total_price, chosen_items, v_sushi, s_sushi, m_sushi, drinks)
   if menu_type == "vege"
@@ -113,6 +117,8 @@ def menu_selection(tty_prompt, menu_type, total_price, chosen_items, v_sushi, s_
     end
   elsif confirmation == "No"
     puts "Please choose again."
+  else 
+    puts "Please answer yes or no."
   end
 end
 
@@ -136,6 +142,8 @@ selection.each do |s|
       total_price = menu_selection(prompt, sushi_type, 0, chosen_items, vegetarian_sushi, seafood_sushi, meat_sushi, hot_drinks)
   end
 end
+
+# show bills
 
 puts "Here's your bill."
 chosen_items.each do |item|
