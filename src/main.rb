@@ -7,6 +7,7 @@ require 'colorize'
 require "artii"
 arter = Artii::Base.new
 puts arter.asciify("Welcome!").cyan
+require 'tty-table'
 
 class MenuItem
   attr_reader :name, :price
@@ -29,6 +30,11 @@ class Drink < MenuItem
   
 end
 
+table = TTY::Table.new(["Vegetarian sushi $3.7","Seafood sushi $4", "Meat sushi $4", "Hot Drinks $2"], 
+  [["Avocado", "Salmon & Avocado", "Teriyaki chicken & Avocado", "Miso soup"], 
+  ["Tempura Vegetabl", "Tuna & Avocado", "Crispy chicken", "Green tea"],
+  ["Avocado & Cucumber", "Prawn & Avocado", "Teriyaki beef", "----"]])
+
 
 vegetarian_sushi = [Sushi.new("Avocado", 3.7), Sushi.new("Tempura Vegetable", 3.7), Sushi.new("Avocado & Cucumber", 3.7)]
 seafood_sushi = [Sushi.new("Salmon & Avocado", 4), Sushi.new("Tuna & Avocado", 4), Sushi.new("Prawn & Avocado", 4)]
@@ -40,6 +46,7 @@ name = gets.chomp
 puts "Hello, #{name}. How can I help you today?"
 puts "We have variety of sushi. If you buy 3 sushi then you will get 10% discount and free miso soup or hot green tea."
 puts "Here are our menus."
+puts table.render(:ascii)
 
 #iterate through menu
 def show_menu(menu_array)
@@ -61,6 +68,8 @@ selection = prompt.multi_select("Select menu?", choices)  # returns array
 total_price = 0
 chosen_items = []
 
+# define 
+
 def menu_selection(tty_prompt, menu_type, total_price, chosen_items, v_sushi, s_sushi, m_sushi, drinks)
   if menu_type == "vege"
     menu_array = v_sushi
@@ -70,9 +79,10 @@ def menu_selection(tty_prompt, menu_type, total_price, chosen_items, v_sushi, s_
 
   elsif menu_type == "seafood"
     menu_array = s_sushi
-    selection = tty_prompt.multi_select("Select seafood sushi", ["Avocado1", "Tempura Vegetable1", "Avocado & Cucumber1"])
+    selection = tty_prompt.multi_select("Select seafood sushi", ["Salmon & Avocado", "Tuna & Avocado", "Prawn & Avocado"])
     confirmation_massage = "Are you sure you want these sushi? Yes or No?"
     confirm = tty_prompt.yes?(confirmation_massage)
+  
   elsif menu_type == "meat"
     menu_array = m_sushi
     selection = tty_prompt.multi_select("Select meat sushi", ["Teriyaki chicken & Avocado", "Crispy chicken", "Teriyaki beef"])
@@ -92,8 +102,9 @@ def menu_selection(tty_prompt, menu_type, total_price, chosen_items, v_sushi, s_
       selection.each do |choice|
         puts choice
         if choice == item.name
-          puts "total price: #{total_price}"
+          # puts "total price: #{total_price}"
           puts "item price: #{item.price}"
+          puts "total price: #{total_price}"
           chosen_items.push(item)
           total_price += item.price
         end
