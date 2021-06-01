@@ -1,7 +1,12 @@
+#TTY prompy
 require 'tty-prompt'
 prompt = TTY::Prompt.new
-
+#colorize
 require 'colorize'
+#artii
+require "artii"
+arter = Artii::Base.new
+puts arter.asciify("Welcome!").cyan
 
 class MenuItem
   attr_reader :name, :price
@@ -28,7 +33,7 @@ end
 vegetarian_sushi = [Sushi.new("Avocado", 3.7), Sushi.new("Tempura Vegetable", 3.7), Sushi.new("Avocado & Cucumber", 3.7)]
 seafood_sushi = [Sushi.new("Salmon & Avocado", 4), Sushi.new("Tuna & Avocado", 4), Sushi.new("Prawn & Avocado", 4)]
 meat_sushi = [Sushi.new("Teriyaki chicken & Avocado", 4), Sushi.new("Crispy chicken", 4), Sushi.new("Teriyaki beef", 4)]
-hot_menu = [Sushi.new("Miso soup", 2), Sushi.new("Green tea", 2)]
+hot_drinks = [Sushi.new("Miso soup", 2), Sushi.new("Green tea", 2)]
 
 puts "Irassyaimase! Welcome to Yoko's Sushi. What is your name?".yellow 
 name = gets.chomp
@@ -46,7 +51,7 @@ end
 show_menu(vegetarian_sushi)
 show_menu(seafood_sushi)
 show_menu(meat_sushi)
-show_menu(hot_menu)
+show_menu(hot_drinks)
 
 puts "Choose sushi what you like."
 
@@ -54,50 +59,76 @@ choices = ["Vegetarian sushi", "Seafood sushi", "Meat sushi", "Hot drinks"]
 selection = prompt.multi_select("Select menu?", choices)  # returns array
 
 total_price = 0
-chosen_sushi = []
+chosen_items = []
+
+def menu_selection(tty_prompt, menu_type, total_price, chosen_items, v_sushi, s_sushi, m_sushi, drinks)
+  if menu_type == "vege"
+    menu_array = v_sushi
+    selection = tty_prompt.multi_select("Select vegetarian sushi", ["Avocado", "Tempura Vegetable", "Avocado & Cucumber"])
+    confirmation_massage = "Are you sure you want these sushi? Yes or No?"
+    confirm = tty_prompt.yes?(confirmation_massage)
+
+  elsif menu_type == "seafood"
+    menu_array = s_sushi
+    selection = tty_prompt.multi_select("Select seafood sushi", ["Avocado1", "Tempura Vegetable1", "Avocado & Cucumber1"])
+    confirmation_massage = "Are you sure you want these sushi? Yes or No?"
+    confirm = tty_prompt.yes?(confirmation_massage)
+  elsif menu_type == "meat"
+    menu_array = m_sushi
+    selection = tty_prompt.multi_select("Select meat sushi", ["Teriyaki chicken & Avocado", "Crispy chicken", "Teriyaki beef"])
+    confirmation_massage = "Are you sure you want these sushi? Yes or No?"
+    confirm = tty_prompt.yes?(confirmation_massage)
+  else
+    menu_array = drinks
+    selection = tty_prompt.multi_select("Select hot drinks", ["Miso soup", "Green tea"])
+    confirmation_massage = "Are you sure you want these sushi? Yes or No?"
+    confirm = tty_prompt.yes?(confirmation_massage)
+
+  end
+  
+  if confirm 
+    menu_array.each do |item|
+      puts item
+      selection.each do |choice|
+        puts choice
+        if choice == item.name
+          puts "total price: #{total_price}"
+          puts "item price: #{item.price}"
+          chosen_items.push(item)
+          total_price += item.price
+        end
+      end
+      return total_price
+    end
+  elsif confirmation == "No"
+    puts "Please choose again."
+  end
+end
+
+
 
 selection.each do |s|
   case s
     when "Vegetarian sushi"
-    # puts "vege"
-      vegetarian_selection = prompt.multi_select("Select vegetarian sushi", ["Avocado", "Tempura Vegetable", "Avocado & Cucumber"])
-      puts "Are you sure you want these sushi?"
-      confirmation = gets.chomp.capitalize
-        if confirmation == "Yes"
-          vegetarian_sushi.each do |sushi|
-
-            vegetarian_selection.each do |choice|
-              if choice == sushi.name
-                total_price += sushi.price
-                chosen_sushi.push(sushi)
-              end
-            end
-
-          end
-        elsif confirmation == "No"
-          puts "No"
-          vegetarian_selection
-        end
-      # puts "seafood"
+      sushi_type = "vege"
+      total_price = menu_selection(prompt, sushi_type, 0, chosen_items, vegetarian_sushi, seafood_sushi, meat_sushi, hot_drinks)
+      
     when "Seafood sushi"
-      prompt.multi_select("Select seafood sushi", ["Avocado1", "Tempura Vegetable1", "Avocado & Cucumber1"])
-      puts "Are you sure you want these sushi?"
+      sushi_type = "seafood"
+      total_price = menu_selection(prompt, sushi_type, 0, chosen_items, vegetarian_sushi, seafood_sushi, meat_sushi, hot_drinks)
       # puts "meat"
     when "Meat sushi"
-      meat_sushi.each do |meat|
-        puts meat
-    end
-
+      sushi_type = "meat"
+      total_price = menu_selection(prompt, sushi_type, 0, chosen_items, vegetarian_sushi, seafood_sushi, meat_sushi, hot_drinks)
     when "Hot drinks"
-      hot_menu.each do |hot|
-        puts hot
-    end
+      sushi_type = "drinks"
+      total_price = menu_selection(prompt, sushi_type, 0, chosen_items, vegetarian_sushi, seafood_sushi, meat_sushi, hot_drinks)
   end
 end
 
 puts "Here's your bill."
-chosen_sushi.each do |sushi|
-  puts sushi
+chosen_items.each do |item|
+  puts item
 end
 puts "Total is $#{total_price}".red
 puts "Arigato gozaimashita. Thank you, have a nice day!".blue
