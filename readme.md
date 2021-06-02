@@ -30,12 +30,21 @@ Total bill and purchased items are showen at the end of check out. It helps cust
 ------------------------------------------------
 ## Control flow
 
-![flowchart](/docs/T1A3_flowchart.png)
+![flowchart](\docs\T1A3_flowchart.png)
 
 ------------------------------------------------
 ## Implemantation plan
+- Link to my trello
+<https://trello.com/b/5QWirXJZ/t1a3-terminal-application>
 
+- Early stage
+![Trello early stage](\docs\trello_earlystage.png)
 
+- In progress
+![Trello in progress](docs\trello_inprogress.png)
+
+- Completed 
+![Trello completed](docs\trello_complete.png)
 --------------------------------------------------
 ## Help documentation
 
