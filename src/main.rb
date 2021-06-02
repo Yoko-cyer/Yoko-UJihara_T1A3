@@ -41,7 +41,7 @@ table = TTY::Table.new(["Vegetarian sushi $3.7","Seafood sushi $4", "Meat sushi 
 vegetarian_sushi = [Sushi.new("Avocado", 3.7), Sushi.new("Tempura Vegetable", 3.7), Sushi.new("Avocado & Cucumber", 3.7)]
 seafood_sushi = [Sushi.new("Salmon & Avocado", 4), Sushi.new("Tuna & Avocado", 4), Sushi.new("Prawn & Avocado", 4)]
 meat_sushi = [Sushi.new("Teriyaki chicken & Avocado", 4), Sushi.new("Crispy chicken", 4), Sushi.new("Teriyaki beef", 4)]
-hot_drinks = [Sushi.new("Miso soup", 2), Sushi.new("Green tea", 2)]
+hot_drinks = [Drink.new("Miso soup", 2), Drink.new("Green tea", 2)]
 
 # show welcoming message
 puts "Irassyaimase! Welcome to Yoko's Sushi. What is your name?".yellow 
@@ -51,17 +51,7 @@ puts "We have variety of sushi. If you buy 3 sushi then you will get 10% discoun
 puts "Here are our menus."
 puts table.render(:ascii)
 
-#iterate through menu
-def show_menu(menu_array)
-  menu_array.each do |item| 
-    puts item
-  end
-end
-
-show_menu(vegetarian_sushi)
-show_menu(seafood_sushi)
-show_menu(meat_sushi)
-show_menu(hot_drinks)
+#   
 
 puts "Choose sushi what you like."
 
@@ -108,8 +98,8 @@ def menu_selection(tty_prompt, menu_type, total_price, chosen_items, v_sushi, s_
           total_price += item.price
         end
       end
-      return total_price
     end
+    return total_price
   elsif !confirm 
     puts "Please choose again."
     if menu_type == "vege"  
@@ -130,13 +120,9 @@ def menu_selection(tty_prompt, menu_type, total_price, chosen_items, v_sushi, s_
       end
       return total_price
     end
-
-  else 
-    puts "Please answer yes or no."
   end
 end
-
-
+ 
 
 selection.each do |s|
   case s
@@ -161,9 +147,38 @@ end
 
 # show bills
 puts "Here's your bill."
+
 chosen_items.each do |item|
+
   puts item
 end
-puts "Total is $#{total_price}".red
-puts "Arigato gozaimashita. Thank you, have a nice day!".blue
+
+# discount and deal
+if chosen_items.size > 3 
+  
+  discount = total_price * 0.1
+  total_price -= discount
+  chosen_items.each do |item|
+   
+    if item.name == "Miso soup" 
+      total_price -= 2
+      break
+    elsif item.name == "Green tea"
+      total_price -= 2
+      break
+    end
+  end
+
+  puts "Total is $#{total_price.round(2)}".red
+  puts "10% discount and a deal applied. You saved $#{discount.round(2)}."
+else
+  discount = total_price * 0.1
+  total_price -= discount
+  puts "Total is $#{total_price.round(2)}".red
+  puts "10% discount applied. You saved $#{discount.round(2)}."
+
+end
+
+# thank you meassage
+puts "Arigato gozaimashita, #{name}. Thank you, have a nice day!".blue
 
