@@ -9,6 +9,8 @@ arter = Artii::Base.new
 puts arter.asciify("Welcome!").cyan
 require 'tty-table'
 
+require_relative './method'
+
 # define classes
 class MenuItem
   attr_reader :name, :price
@@ -155,21 +157,21 @@ end
 
 # discount and deal
 if chosen_items.size > 3 
+  total_price = calclate_discount(total_price)
   
-  discount = total_price * 0.1
-  total_price -= discount
   chosen_items.each do |item|
    
     if item.name == "Miso soup" 
-      total_price -= 2
+      total_price = calculate_drink_discount(total_price)
       break
     elsif item.name == "Green tea"
-      total_price -= 2
+      total_price = calculate_drink_discount(total_price)
       break
     end
   end
 
   puts "Total is $#{total_price.round(2)}".red
+  discount = total_price * 0.1
   puts "10% discount and a deal applied. You saved $#{discount.round(2)}."
 else
   discount = total_price * 0.1

@@ -30,7 +30,7 @@ Total bill and purchased items are showen at the end of check out. It helps cust
 ------------------------------------------------
 ## Control flow
 
-![flowchart](\docs\T1A3_flowchart.png)
+![flowchart](./docs/T1A3_flowchart.png)
 
 ------------------------------------------------
 ## Implemantation plan
