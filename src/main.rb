@@ -102,21 +102,35 @@ def menu_selection(tty_prompt, menu_type, total_price, chosen_items, v_sushi, s_
   
   if confirm 
     menu_array.each do |item|
-      puts item
       selection.each do |choice|
-        puts choice
         if choice == item.name
-          # puts "total price: #{total_price}"
-          puts "item price: #{item.price}"
-          puts "total price: #{total_price}"
           chosen_items.push(item)
           total_price += item.price
         end
       end
       return total_price
     end
-  elsif confirmation == "No"
+  elsif !confirm 
     puts "Please choose again."
+    if menu_type == "vege"  
+      selection = tty_prompt.multi_select("Select vegetarian sushi", ["Avocado", "Tempura Vegetable", "Avocado & Cucumber"])
+    elsif menu_type == "seafood"
+      selection = tty_prompt.multi_select("Select seafood sushi", ["Salmon & Avocado", "Tuna & Avocado", "Prawn & Avocado"])
+    elsif menu_type == "meat"
+      selection = tty_prompt.multi_select("Select meat sushi", ["Teriyaki chicken & Avocado", "Crispy chicken", "Teriyaki beef"])
+    else
+      selection = tty_prompt.multi_select("Select hot drinks", ["Miso soup", "Green tea"])
+    end   
+      menu_array.each do |item|
+      selection.each do |choice|
+        if choice == item.name
+          chosen_items.push(item)
+          total_price += item.price
+        end
+      end
+      return total_price
+    end
+
   else 
     puts "Please answer yes or no."
   end
@@ -128,23 +142,24 @@ selection.each do |s|
   case s
     when "Vegetarian sushi"
       sushi_type = "vege"
-      total_price = menu_selection(prompt, sushi_type, 0, chosen_items, vegetarian_sushi, seafood_sushi, meat_sushi, hot_drinks)
-      
+      sum = menu_selection(prompt, sushi_type, 0, chosen_items, vegetarian_sushi, seafood_sushi, meat_sushi, hot_drinks)
+      total_price += sum
     when "Seafood sushi"
       sushi_type = "seafood"
-      total_price = menu_selection(prompt, sushi_type, 0, chosen_items, vegetarian_sushi, seafood_sushi, meat_sushi, hot_drinks)
-      # puts "meat"
+      sum = menu_selection(prompt, sushi_type, 0, chosen_items, vegetarian_sushi, seafood_sushi, meat_sushi, hot_drinks)
+      total_price += sum
     when "Meat sushi"
       sushi_type = "meat"
-      total_price = menu_selection(prompt, sushi_type, 0, chosen_items, vegetarian_sushi, seafood_sushi, meat_sushi, hot_drinks)
+      sum = menu_selection(prompt, sushi_type, 0, chosen_items, vegetarian_sushi, seafood_sushi, meat_sushi, hot_drinks)
+      total_price += sum
     when "Hot drinks"
       sushi_type = "drinks"
-      total_price = menu_selection(prompt, sushi_type, 0, chosen_items, vegetarian_sushi, seafood_sushi, meat_sushi, hot_drinks)
+      sum = menu_selection(prompt, sushi_type, 0, chosen_items, vegetarian_sushi, seafood_sushi, meat_sushi, hot_drinks)
+      total_price += sum
   end
 end
 
 # show bills
-
 puts "Here's your bill."
 chosen_items.each do |item|
   puts item
