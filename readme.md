@@ -47,7 +47,16 @@ Total bill and purchased items are showen at the end of check out. It helps cust
 ![Trello completed](docs\trello_complete.png)
 --------------------------------------------------
 ## Help documentation
-
+1. Ruby must be installed on your computer. 
+Please refer to [this page](https://www.ruby-lang.org/en/downloads/) for installation.
+2. Make sure you clone this repository into your computer.
+3. These Rubygems must be installed.
+    
+    - gem "artii", "~> 2.1"
+    - gem "colorize", "~> 0.8.1"
+    - gem "tty-prompt"
+    - gem "tty-table"
+4. Now, you are ready to use this app!
 -------------------------------------------------
 ## Link to source control repository
 <https://github.com/Yoko-cyer/Yoko-UJihara_T1A3>
