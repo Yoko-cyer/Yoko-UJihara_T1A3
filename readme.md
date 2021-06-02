@@ -35,6 +35,7 @@ Total bill and purchased items are showen at the end of check out. It helps cust
 ------------------------------------------------
 ## Implemantation plan
 
+
 --------------------------------------------------
 ## Help documentation
 
