@@ -28,6 +28,17 @@ There is a special discont and deal to customers who purchased more than 3 rolls
 Total bill and purchased items are showen at the end of check out. It helps customers to reasure the order was correct. 
 
 ------------------------------------------------
+## User interection and experience
+1. Users are welcomed by a message and asked to input their names. Systems are explained briefly and the menu table is shown.
+
+2. Users choose sushi's categories first, which are vegetarian, seafood, meat, and hot drinks. 
+After categories are chosed, users choose items. Confirmation message is shown after items are chosen. If yes, proceed to the next categories or check out. If no, users are allowed to choose again. 
+
+3. 10% discont or drink deal or the both apply, when they purchase more than 3 items depending on conditions. If they get more than 3 items which are only sushi, only 10% discount applies. If more than 3 items including sushi and hot drinks, one hot drink is free and 10% discount. 
+
+4. Final bill is displayed with purchased items. How much users have saved because of the discount is also shown to make users feel great.    
+
+--------------------------------------------
 ## Control flow
 
 ![flowchart](./docs/T1A3_flowchart.png)

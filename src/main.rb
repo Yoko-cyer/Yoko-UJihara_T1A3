@@ -171,11 +171,13 @@ if chosen_items.size > 3
   puts "Total is $#{total_price.round(2)}".red
   discount = total_price * 0.1
   puts "10% discount and a deal applied. You saved $#{discount.round(2)}."
+  
 else
-  discount = total_price * 0.1
-  total_price -= discount
   puts "Total is $#{total_price.round(2)}".red
-  puts "10% discount applied. You saved $#{discount.round(2)}."
+  # discount = total_price * 0.1
+  # total_price -= discount
+  # puts "Total is $#{total_price.round(2)}".red
+  # puts "10% discount applied. You saved $#{discount.round(2)}."
 
 end
 
