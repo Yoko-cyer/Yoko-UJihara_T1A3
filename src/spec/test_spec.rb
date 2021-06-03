@@ -3,7 +3,7 @@ require_relative '../method'
 
 describe "calculate discount" do
     it "should calculate 10% discount" do 
-        actual = calclate_discount(100)
+        actual = calculate_discount(100)
         expect(actual).to eq(90) 
     end
 end 

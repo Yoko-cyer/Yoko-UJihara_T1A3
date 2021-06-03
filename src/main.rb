@@ -53,8 +53,6 @@ puts "We have variety of sushi. If you buy 3 sushi then you will get 10% discoun
 puts "Here are our menus."
 puts table.render(:ascii)
 
-#   
-
 puts "Choose sushi what you like."
 
 # allows to choose menu by categories
@@ -157,7 +155,7 @@ end
 
 # discount and deal
 if chosen_items.size > 3 
-  total_price = calclate_discount(total_price)
+  total_price = calculate_discount(total_price)
   
   chosen_items.each do |item|
    

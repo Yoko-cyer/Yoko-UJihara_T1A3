@@ -1,4 +1,4 @@
-def calclate_discount(price)
+def calculate_discount(price)
     discount = price * 0.1
     return price -= discount
 end
