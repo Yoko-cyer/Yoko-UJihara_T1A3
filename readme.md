@@ -38,13 +38,13 @@ Total bill and purchased items are showen at the end of check out. It helps cust
 <https://trello.com/b/5QWirXJZ/t1a3-terminal-application>
 
 - Early stage
-![Trello early stage](\docs\trello_earlystage.png)
+![Trello early stage](./docs/trello_earlystage.png)
 
 - In progress
-![Trello in progress](docs\trello_inprogress.png)
+![Trello in progress](./docs/trello_inprogress.png)
 
 - Completed 
-![Trello completed](docs\trello_complete.png)
+![Trello completed](./docs/trello_complete.png)
 --------------------------------------------------
 ## Help documentation
 1. Ruby must be installed on your computer. 
